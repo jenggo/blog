@@ -1,0 +1,12 @@
+							<repeat group="{{ @list_user.subset }}" value="{{ @user }}">
+								<tr>
+									<td>{{ @user.nama }}</td>
+									<td><a href="mailto:{{ @user.email }}">{{ @user.email }}</a></td>
+									<td>{{ @user.situs }}</td>
+									<td><check if="{{ @user.aktif == 1 }}"><true>Yup</true><false>Belum</false></check></td>
+									<td>
+										<check if="{{ @user.id != @SESSION.id }}"><a href="{{ @hal_admin }}/hapus/user/{{ @user.id }}" class="ico del">Del</a></check>
+										<a href="{{ @hal_admin }}/user/edit/{{ @user.id }}" class="ico edit">Edit</a>
+									</td>
+								</tr>
+							</repeat>

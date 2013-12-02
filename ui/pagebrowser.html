@@ -1,0 +1,12 @@
+<nav class="postnoline">
+    <check if="{{ @pg.nextPage }}">
+    	<span class="previous">&larr;
+    		<a href="{{ @BASE, @pg.route, @pg.prefix. @pg.currentPage == 1 ? 'halaman/' : ''}}{{ @pg.nextPage }}">Lebih lama</a>
+    	</span>
+    </check>
+    <check if="{{ @pg.prevPage }}">
+        <span class="next">
+        	<a href="{{ @pg.prevPage == 1 ? '/' : @pg.prevPage }}">Lebih baru</a>
+        &rarr;</span>
+    </check>
+</nav>

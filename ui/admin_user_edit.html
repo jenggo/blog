@@ -1,0 +1,86 @@
+			<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<h2 class="box-head">Edit User</h2>
+					<!-- End Box Head -->
+
+					<form action="" method="post" id="form_edit_user" class="form">
+
+						<!-- Form -->
+								<p>
+									<label for="nama">Nama <span>(Required Field)</span></label>
+									<input type="text" class="field size1" name="nama" id="nama" required="required" value="{{ @user.nama }}" />
+								</p>
+								<p>
+									<label for="email">Email <span>(Required Field)</span></label>
+									<input type="email" class="field size1" name="email" id="email" required="required" value="{{ @user.email }}" />
+								</p>
+								<p>
+									<label for="situs">Situs</label>
+									<input type="url" class="field size1" name="situs" id="situs" value="{{ @user.situs }}" />
+								</p>
+								<p>
+									<label for="pass_pertama">Password <check if="{{ @user.password != '0' }}"><span>(Diisi jika ingin mengganti password)</span></check></label>
+									<input type="password" class="field size1" name="pass_pertama" id="pass_pertama" <check if="{{ @user.password == '0' }}">required="required"</check> />
+								</p>
+								<p>
+									<label for="pass_kedua">Ulangi <span>(Ulangi password)</span></label>
+									<input type="password" class="field size1" name="pass_kedua" id="pass_kedua" <check if="{{ @user.password == '0' }}">required="required"</check> />
+								</p>
+								<check if="{{ @user.id != @SESSION.id }}">
+								<true>
+								<p class="inline-field">
+									<label for="akses">Akses <span>(Choose one)</span></label>
+									<select class="field size1" name="akses" id="akses">
+										<option value="0" <check if="{{ @user.akses == 0 }}">selected="selected"</check>>Biasa</option>
+										<option value="1" <check if="{{ @user.akses == 1 }}">selected="selected"</check>>Editor</option>
+										<option value="2" <check if="{{ @user.akses == 2 }}">selected="selected"</check>>Admin</option>
+									</select>
+								</p>
+								<p>
+									<label for="aktif"><input type="checkbox" value="1" name="aktif" id="aktif"
+									<check if="{{ @user.aktif == 1}}">checked="checked"</check> /> Aktif</label>
+								</p>
+								</true>
+								</check>
+								<input type="hidden" name="id" value="{{ @user.id }}" />
+
+						<!-- End Form -->
+
+						<!-- Form Buttons -->
+						<div class="buttons">
+							<input type="submit" class="button" value="submit" />
+						</div>
+						<!-- End Form Buttons -->
+					</form>
+				</div>
+				<!-- End Box -->
+
+				<script type="text/javascript">
+				$(function(){
+
+					$("#form_edit_user").submit(function(e){
+						$.ajax({
+							type: "post",
+							url: "{{ @hal_admin }}/edit/user",
+							data: $(this).serialize(),
+							success: function(data) {
+								if (data == 'BEDA!') {
+									$("#isi_pesan").empty().text("Password tidak sama!");
+									$("#pesan").removeClass("msg-ok").addClass("msg-error").show();
+								}
+								else if (data.length > 1) {
+									$("#isi_pesan").empty().text("User berhasil diedit!");
+									$("#pesan").removeClass("msg-error").addClass("msg-ok").show();
+									$("#form_edit_user")[0].reset();
+								}
+								else {
+									$("#isi_pesan").empty().text("User gagal diedit!");
+									$("#pesan").removeClass("msg-ok").addClass("msg-error").show();
+								}
+							}
+						});
+						e.preventDefault();
+					});
+				});
+				</script>

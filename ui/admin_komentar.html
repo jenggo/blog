@@ -1,0 +1,86 @@
+			<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<h2 class="box-head">Komentar</h2>
+					<!-- End Box Head -->
+
+					<!-- Table -->
+					<div class="table">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<thead>
+								<tr>
+									<th width="13"><input type="checkbox" class="checkbox" /></th>
+									<th>Komentator</th>
+									<th>Artikel</th>
+									<th>Komentar</th>
+									<th class="ac">Control</th>
+								</tr>
+							</thead>
+							<tbody>
+								<repeat group="{{ @list_komentar.subset }}" value="{{ @komentar }}">
+								<tr>
+									<td><input type="checkbox" class="checkbox" /></td>
+									<td>
+										<check if="{{ !empty(@komentar.id_user) }}">
+										<true>
+											<repeat group="{{ @list_user }}" value="{{ @user }}">
+											<check if="{{ @user.id == @komentar.id_user }}">
+											{{ @user.nama }}
+											</check>
+											</repeat>
+										</true>
+										<false>
+										<check if="{{ empty(@komentar.situs) }}">
+											<true>{{ @komentar.nama }}</true>
+											<false><a href="{{ @komentar.situs }}">{{ @komentar.nama }}</a></td></false>
+										</check>
+										</false>
+										</check>
+									<td>
+										<repeat group="{{ @list_artikel }}" value="{{ @artikel }}">
+											<check if="{{ @komentar.id_artikel == @artikel.id }}">
+												<a href="/{{ @artikel.slug }}">{{ @artikel.judul }}</a>
+											</check>
+										</repeat>
+									</td>
+									<td>{{ substr(@komentar.isi, 0, 200) }}</td>
+									<td>
+										<a href="{{ @hal_admin }}/hapus/komentar/{{ @komentar.id }}" class="ico del">Delete</a>
+									</td>
+								</tr>
+							</repeat>
+							</tbody>
+						</table>
+						<check if="{{ isset(@admin_pagebrowser) }}">
+							{{ @admin_pagebrowser | raw }}
+						</check>
+
+					</div>
+					<!-- Table -->
+
+				</div>
+				<!-- End Box -->
+<script type="text/javascript">
+	$(function(){
+		$(".pagging .right a").click(function(e){
+			var url = $(this).attr("href");
+			$.get(url, function(data){
+				if (data.length > 5) {
+					$("#content").empty().html(data);
+				}
+			})
+			e.preventDefault();
+		});
+
+		$(".del").click(function(e){
+			var ini = $(this);
+			var url = ini.attr("href");
+			$.get(url, function(data){
+				if (data.length > 1) {
+					ini.parent().parent().remove();
+				}
+			});
+			e.preventDefault();
+		});
+	});
+</script>

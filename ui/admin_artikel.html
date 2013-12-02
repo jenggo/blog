@@ -1,0 +1,95 @@
+			<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<h2 class="box-head">Artikel baru</h2>
+					<!-- End Box Head -->
+
+					<form action="" method="post" id="form_buat_artikel" class="form">
+
+						<!-- Form -->
+								<p>
+									<label for="judul">Judul <span>(Required Field)</span></label>
+									<input type="text" class="field size1" name="judul" id="judul" required="required"
+										<check if="{{ isset(@artikel) }}">
+											value="{{ @artikel.judul }}"
+										</check>
+									/>
+								</p>
+								<p class="inline-field">
+									<label for="id_kategori">Kategori <span>(Choose one)</span></label>
+									<select class="field size1" name="id_kategori" id="id_kategori">
+									<repeat group="{{ @list_kategori }}" value="{{ @kategori }}">
+										<option value="{{ @kategori.id }}"
+											<check if="{{ isset(@artikel) AND @kategori.id == @artikel.id_kategori }}">
+											selected="selected"
+											</check>
+										>{{ @kategori.nama }}</option>
+									</repeat>
+									</select>
+								</p>
+								<p>
+									<span class="req" id="markdown">Markdown Syntax</span>
+									<label for="isi">Konten <span>(Required Field)</span></label>
+									<textarea class="field size1" rows="10" cols="30" name="isi" id="isi" required="required"><check if="{{ isset(@artikel) }}">{{ @artikel.isi }}</check></textarea>
+								</p>
+								<check if="{{ isset(@artikel) }}">
+									<input type="hidden" name="id" value="{{ @artikel.id }}" />
+								</check>
+
+						<!-- End Form -->
+
+						<!-- Form Buttons -->
+						<div class="buttons">
+							<input type="button" class="button" value="preview" id="preview" />
+							<input type="submit" class="button" value="submit" />
+						</div>
+						<!-- End Form Buttons -->
+					</form>
+				</div>
+				<!-- End Box -->
+
+				<script type="text/javascript">
+				$(function(){
+					$("#markdown").click(function(e){
+						$("#syntax_markdown").toggle();
+						e.preventDefault();
+					});
+
+					$("#form_buat_artikel").submit(function(e){
+						$.ajax({
+							type: "post",
+							url: "{{ @hal_admin }}/buat/artikel",
+							data: $(this).serialize(),
+							success: function(data) {
+								if (data.length > 1) {
+									$("#isi_pesan").empty().text("Konten berhasil dibuat!");
+									$("#pesan").removeClass("msg-error").addClass("msg-ok").show();
+									$("#form_buat_artikel")[0].reset();
+								}
+								else {
+									$("#isi_pesan").empty().text("Konten gagal dibuat!");
+									$("#pesan").removeClass("msg-ok").addClass("msg-error").show();
+								}
+							}
+						});
+						e.preventDefault();
+					});
+
+					$("#preview").click(function(e){
+						$.ajax({
+							type: "post",
+							url: "/{{ @hal_admin }}/preview/artikel",
+							data: $("#form_buat_artikel").serialize(),
+							success: function(data) {
+								if (data.length > 5) $("#hasil_preview").empty().html(data).show();
+							}
+						});
+						e.preventDefault();
+					});
+
+					$("#hasil_preview").click(function(e){
+						$(this).hide();
+						e.preventDefault();
+					});
+				});
+				</script>

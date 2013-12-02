@@ -1,0 +1,102 @@
+<article>
+<check if="{{ isset(@error) }}">
+<true>
+	<header>
+		<h3>{{ @error }}</h3>
+	</header>
+	</article>
+	<nav class="postnoline"><span class="previous">&larr; <a href="/" title="beranda">Beranda</a></span></nav>
+</true>
+<false>
+	<header>
+		<h3 title="{{ @artikel.judul }}">{{ @artikel.judul }}</h3>
+		<p class="byline">{{ @artikel.tanggal }} di <a href="kategori/{{ @kategori.slug }}" title="{{ @kategori.nama }}">{{ @kategori.nama }}</a>
+		</p>
+	</header>
+	{{ Markdown::instance()->convert(@artikel.isi) }}
+</article>
+
+<aside>
+	<h3 id="comments_headers">{{ @jumlah_komentar }} Komentar</h3>
+	<repeat group="{{ @list_komentar }}" value="{{ @komen }}">
+		<p class="postcomment">
+			{{ @komen.isi }}
+			<span class="commentsdate">[{{ @komen.tanggal }}]</span>
+			<span class="commentslnk">Oleh
+				<check if="{{ !is_null(@komen.id_user) }}">
+				<true>
+					<repeat group="{{ @list_user }}" value="{{ @user }}">
+						<check if="{{ @user.id == @komen.id_user }}">
+							<check if="{{ is_null(@user.situs) }}">
+								<true>
+									<strong>{{ @user.nama }}</strong>
+								</true>
+								<false>
+									<strong><a href="{{ @user.situs }}" title="{{ @user.situs }}">{{ @user.nama }}</a></strong>
+								</false>
+							</check>
+						</check>
+					</repeat>
+				</true>
+				<false>
+					<check if="{{ !empty(@komen.situs) }}">
+						<true>
+							<strong><a href="{{ @komen.situs }}" title="{{ @komen.situs }}">{{ @komen.nama }}</a></strong>
+						</true>
+						<false>
+							<strong title="{{ @komen.tanggal }}">{{ @komen.nama }}</strong>
+						</false>
+					</check>
+				</false>
+				</check>
+			</span>
+		</p>
+	</repeat>
+</aside>
+
+<article class="postnoline content">
+	<check if="{{@artikel.komentar == 1 }}">
+	<true>
+	<h3 id="respond" class="comments_headers">komentarmu</h3>
+	<form action="" method="post" id="form_komentar">
+		<check if="{{ isset(@SESSION.login) }}">
+		<false>
+		<p>
+			<input class="text_input" type="text" name="nama" id="nama" required="required" placeholder="nama" />
+			<label for="nama"><strong> Nama</strong></label>
+		</p>
+		<p>
+			<input class="text_input" type="email" name="email" id="email" required="required" placeholder="email" />
+			<label for="email"><strong> Email</strong></label>
+		</p>
+		<p>
+			<input class="text_input" type="url" name="situs" id="situs" placeholder="situs" />
+			<label for="situs"><strong> Situs</strong></label>
+		</p>
+		</false>
+		</check>
+		<p>
+			<textarea class="text_input text_area" name="isi" id="isi" cols="7" rows="7" required="required"></textarea>
+		</p>
+		<p>
+			<input name="submit" class="form_submit" type="submit" id="submit" value="Simpan" />
+			<input type="hidden" name="id_artikel" value="{{ @artikel.id }}" />
+		</p>
+	</form>
+	</true>
+	<false>
+		<h4 class="tengah">Maaf, komentar ditutup atau artikel telah kadaluarsa</h4>
+	</false>
+	</check>
+</article>
+
+<nav class="posttopline">
+	<check if="{{ isset(@SEBELUM) }}">
+		<span class="previous">&larr; <a href="{{ @SEBELUM.slug }}" title="{{ @SEBELUM.judul }}">{{ @SEBELUM.judul }}</a></span>
+	</check>
+	<check if="{{ isset(@SESUDAH) }}">
+		<span class="next"><a href="{{ @SESUDAH.slug }}" title="{{ @SESUDAH.judul }}">{{ @SESUDAH.judul }}</a> &rarr;</span>
+	</check>
+</nav>
+</false>
+</check>

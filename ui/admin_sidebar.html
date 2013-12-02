@@ -1,0 +1,48 @@
+			<!-- Sidebar -->
+			<div id="sidebar">
+
+				<div id="add_user" class="box sembunyi">
+
+					<!-- Box Head -->
+					<h2 class="box-head">New User</h2>
+					<!-- End Box Head-->
+
+					<div class="box-content">
+						<form method="post" action="" id="form_add_user">
+							<p><label>Nama</label><input type="text" name="nama" id="nama" placeholder="nama" required="required" class="field" /></p>
+							<p><label>Email</label><input type="email" name="email" id="email" placeholder="email" required="required" class="field" /></p>
+							<p><label>Situs</label><input type="url" name="situs" id="situs" placeholder="situs" class="field" /></p>
+							<!-- <p><label>Password</label><input type="password" name="password" id="password" required="required" class="field" /></p> -->
+							<p><label>Akses</label>
+							<select name="akses" class="field">
+								<option value="0">Normal</option>
+								<option value="1">Editor</option>
+								<option value="2">Admin</option>
+							</select></p>
+							<button class="add-button">Add New</button>
+						</form>
+					</div>
+				</div>
+
+				<!-- Box -->
+				<div id="syntax_markdown" class="box sembunyi">
+
+					<h2 class="box-head">Markdown syntax :</h2>
+
+					<div class="box-content">
+						<p>Heading<br />
+						=======</p>
+						<p>Sub-heading<br />
+						-----------</p>
+						<p>Paragraphs are separated by a blank line.</p>
+						<p>Text attributes *Italic*, **bold**, `monospace`.</p>
+						<p>Shopping list:<br />* apples<br />* oranges<br />* pears</p>
+						<p>Numbered list:<br />1 apples<br />2 oranges<br />3 pears</p>
+						<p>This is [an example](http://example.com/ "Title") inline link.</p>
+						<p>See my [local_link](/local_link/) page for details.</p>
+					</div>
+				</div>
+				<!-- End Box -->
+				<div id="hasil_preview" class="box sembunyi"></div>
+			</div>
+			<!-- End Sidebar -->

@@ -1,0 +1,78 @@
+			<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<h2 class="box-head">Setting</h2>
+					<!-- End Box Head -->
+
+					<form action="" method="post" id="form_settings" class="form">
+
+						<!-- Form -->
+								<p>
+									<label for="title">Title <span>(Required Field)</span></label>
+									<input type="text" class="field size1" name="title" id="title" value="{{ @settings.title }}" />
+								</p>
+								<p>
+									<label for="slogan">Slogan <span>(Required Field)</span></label>
+									<input type="text" class="field size1" name="slogan" id="slogan" value="{{ @settings.slogan }}" />
+								</p>
+								<p>
+									<label for="meta_desc">Description(meta) </label>
+									<input type="text" class="field size1" name="meta_desc" id="meta_desc" value="{{ @settings.meta_desc }}" />
+								</p>
+								<p>
+									<label for="meta_key">Keyword(meta) </label>
+									<input type="text" class="field size1" name="meta_key" id="meta_key" value="{{ @settings.meta_key }}" />
+								</p>
+								<p>
+									<label for="wp_key">Wordpress(key) </label>
+									<input type="text" class="field size1" name="wp_key" id="wp_key" value="{{ @settings.wp_key }}" />
+								</p>
+								<p>
+									<label for="about">About </label>
+									<textarea class="field size1" rows="5" cols="10" name="about" id="about" required="required">{{ @settings.about }}</textarea>
+								</p>
+								<p class="inline-field">
+									<label for="featured">Featured <span>(Choose one)</span></label>
+									<select class="field size1" name="featured" id="featured">
+									<repeat group="{{ @list_artikel }}" value="{{ @artikel }}">
+										<option value="{{ @artikel.id }}" <check if="{{ @artikel.id == @settings.featured }}">selected="selected"</check>>{{ @artikel.judul }}</option>
+									</repeat>
+									<option value="0">None</option>
+									</select>
+								</p>
+
+						<!-- End Form -->
+
+						<!-- Form Buttons -->
+						<div class="buttons">
+							<input type="submit" class="button" value="submit" />
+						</div>
+						<!-- End Form Buttons -->
+					</form>
+				</div>
+				<!-- End Box -->
+
+				<script type="text/javascript">
+				$(function(){
+
+					$("#form_settings").submit(function(e){
+						$.ajax({
+							type: "post",
+							url: "{{ @hal_admin }}/buat/setting",
+							data: $(this).serialize(),
+							success: function(data) {
+								if (data.length < 1) {
+									$("#isi_pesan").empty().text("Setting telah diubah!");
+									$("#pesan").removeClass("msg-error").addClass("msg-ok").show();
+									$("#form_buat_artikel")[0].reset();
+								}
+								else {
+									$("#isi_pesan").empty().text("Setting gagal diubah!");
+									$("#pesan").removeClass("msg-ok").addClass("msg-error").show();
+								}
+							}
+						});
+						e.preventDefault();
+					});
+				});
+				</script>

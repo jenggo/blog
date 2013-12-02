@@ -1,0 +1,17 @@
+<div class="pagging">
+	<!-- <div class="left">Showing 1-12 of 44</div> -->
+	<div class="right">
+		<check if="{{@pg.firstPage}}">
+			<a href="{{@BASE, @pg.route, @pg.prefix.@pg.firstPage}}">First</a>
+		</check>
+		<repeat group="{{@pg.rangePages}}" value="{{@page}}">
+        	<a href="{{@BASE, @pg.route, @pg.prefix.@page}}" {{ @page == @pg.currentPage ? 'class="active"':'' }} >{{@page}}</a>
+		</repeat>
+		<check if="{{@pg.nextPage}}">
+        	<a href="{{@BASE, @pg.route, @pg.prefix.@pg.nextPage}}">Next</a>
+    	</check>
+    	<check if="{{@pg.lastPage}}">
+        	<a href="{{@BASE, @pg.route, @pg.prefix.@pg.lastPage}}">Last [{{ @pg.lastPage }}]</a>
+    	</check>
+	</div>
+</div>

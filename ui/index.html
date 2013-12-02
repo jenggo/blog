@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+  	<meta charset="utf-8" />
+  	<check if="{{ !empty(@setting.meta_desc) }}">
+  		<meta description="{{ @setting.meta_desc }}" />
+  	</check>
+  	<check if="{{ !empty(@setting.meta_key) }}">
+  		<meta keywords="{{ @setting.meta_key }}" />
+  	</check>
+    <title>{{ @setting.title }}</title>
+    <link rel="stylesheet" type="text/css" href="/ui/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/ui/css/style.css">
+    <!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+  </head>
+  <body>
+
+  	<header>
+		<h1><a href="/">{{ @setting.slogan }}</a></h1>
+	</header>
+
+	<section id="konten">
+    	<include href="{{ @template }}" />
+    </section>
+
+    <footer>
+
+			<article>
+				<p><strong>About</strong></p>
+				<p>{{ @setting.about }}</p>
+			</article>
+
+			<article>
+				<p><strong>Terakhir</strong></p>
+				<nav>
+					<ul>
+						<repeat group="{{ @list_artikel_terakhir }}" value="{{ @list }}">
+							<li><a href="/{{ @list.slug }}" title="{{ @list.judul }}">{{ @list.judul }}</a></li>
+						</repeat>
+					</ul>
+				</nav>
+			</article>
+
+			<article id="last">
+				<p><strong>Kategori</strong></p>
+				<nav>
+					<ul>
+						<repeat group="{{ @list_kategori }}" value="{{ @list }}">
+							<li><a href="/kategori/{{ @list.slug }}" title="{{ @list.nama }}">{{ @list.nama }}</a></li>
+						</repeat>
+					</ul>
+				</nav>
+			</article>
+
+			<article id="copyright">
+				<form method="POST" action="/pencarian" id="pencarian">
+					<label for="cari">Pencarian :</label>
+					<input type="text" name="cari" id="cari" placeholder="Pencarian..." />
+				</form>
+				<p>using the <a href="http://powazek.com/depo-skinny">DePo Skinny Theme</a>.</p>
+			</article>
+
+		</footer>
+  </body>
+</html>

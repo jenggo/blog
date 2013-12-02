@@ -1,0 +1,22 @@
+<article>
+<check if="{{ isset(@error) }}">
+<true>
+	<header>
+		<h3>{{ @error }}</h3>
+	</header>
+	</article>
+	<nav class="postnoline"><span class="previous">&larr; <a href="/" title="beranda">Beranda</a></span></nav>
+</true>
+<false>
+<article>
+	<header>
+		<h3>List konten dari kategori {{ @kategori.nama }} :</h3>
+	</header>
+	<ul>
+		<repeat group="{{ @list_artikel }}" value="{{ @artikel }}">
+			<li><a href="/{{ @artikel.slug }}">{{ @artikel.judul }}</a></li>
+		</repeat>
+	</ul>
+</article>
+</false>
+<nav class="postnoline"><span class="previous">&larr; <a href="/" title="Beranda">Beranda</a></span></nav>

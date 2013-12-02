@@ -1,0 +1,93 @@
+			<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<h2 class="box-head">Kategori baru</h2>
+					<!-- End Box Head -->
+
+					<form action="" method="post" id="form_buat_kategori" class="form">
+
+						<!-- Form -->
+								<p>
+									<label for="nama">Nama <span>(Required Field)</span></label>
+									<input type="text" class="field size1" name="nama" id="nama" required="required" <check if="{{ isset(@ekategori) }}">value="{{ @ekategori.nama }}"</check> />
+								</p>
+								<p>
+									<label for="aktif"><input type="checkbox" value="1" name="aktif" id="aktif"
+									<check if="{{ isset(@ekategori) AND @ekategori.aktif == 1}}">checked="checked"</check> /> Aktif</label>
+								</p>
+								<check if="{{ isset(@ekategori) }}"><input type="hidden" name="id" value="{{ @ekategori.id }}" /></check>
+
+						<!-- End Form -->
+
+						<!-- Form Buttons -->
+						<div class="buttons">
+							<input type="submit" class="button" value="submit" />
+						</div>
+						<!-- End Form Buttons -->
+					</form>
+					<div class="box-content">
+						<h2>Kategori :</h2>
+						<ul id="list_kategori">
+							<repeat group="{{ @list_kategori }}" value="{{ @kategori }}">
+								<li class="li_kategori">{{ @kategori.nama }} <a href="{{ @hal_admin }}/edit/kategori/{{ @kategori.id }}" class="ico edit">&nbsp;</a> <a href="{{ @hal_admin }}/hapus/kategori/{{ @kategori.id }}" class="ico del2">&nbsp;</a></li>
+							</repeat>
+						</ul>
+					</div>
+				</div>
+				<!-- End Box -->
+
+				<script type="text/javascript">
+				$(function(){
+
+					$(".del2").click(function(e){
+						var ini = $(this);
+						$.get(ini.attr("href"), function(data){
+							if (data == "JANGAN!") {
+								$("#isi_pesan").empty().text('Kategori masih ada artikelnya!');
+								$("#pesan").removeClass("msg-ok").addClass("msg-error").show();
+							}
+							else {
+								$("#isi_pesan").empty().text('Kategori telah dihapus!');
+								$("#pesan").removeClass("msg-error").addClass("msg-ok").show();
+								ini.parent().remove();
+							}
+						});
+						e.preventDefault();
+					});
+
+					$(".edit").click(function(e){
+						$.get($(this).attr("href"), function(data){
+							if (data.length > 1) {
+								$("#content").empty().html(data);
+							}
+						});
+						e.preventDefault();
+					});
+
+					$("#form_buat_kategori").submit(function(e){
+						$.ajax({
+							type: 'post',
+							url: "{{ @hal_admin }}/buat/kategori",
+							data: $(this).serialize(),
+							success: function(data) {
+								if (data == 'OK!') {
+									$("#isi_pesan").empty().text('Kategori berhasil diubah!');
+									$("#pesan").addClass("msg-ok").show();
+									$("#form_buat_kategori")[0].reset();
+								}
+								else if (data.length < 1) {
+									$("#isi_pesan").empty().text('Kategori gagal diubah/tambah');
+									$("#pesan").addClass("msg-error").show();
+								}
+								else {
+									$("#isi_pesan").empty().text('Kategori berhasil ditambah!');
+									$("#pesan").addClass("msg-ok").show();
+									$("#form_buat_kategori")[0].reset();
+									$("#list_kategori").append("<li>" + data + "</li>");
+								}
+							}
+						})
+						e.preventDefault();
+					});
+				});
+				</script>

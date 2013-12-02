@@ -1,0 +1,16 @@
+<repeat group="{{ @list_artikel.subset }}" value="{{ @artikel }}">
+	<article>
+		<header>
+			<h3><a href="/{{ @artikel.slug }}" title="{{ @artikel.judul }}">{{ @artikel.judul }}</a></h3>
+			<p class="byline">{{ @artikel.tanggal }}
+			<repeat group="{{ @list_kategori }}" value="{{ @lkategori }}">
+				<check if="{{ @artikel.id_kategori == @lkategori.id }}">
+					di <a href="/kategori/{{ @lkategori.slug }}">{{ @lkategori.nama }}</a>
+				</check>
+			</repeat>
+			</p>
+		</header>
+		{{ Markdown::instance()->convert(@artikel.isi) }}
+	</article>
+</repeat>
+{{ @pagebrowser | raw }}

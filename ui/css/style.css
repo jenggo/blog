@@ -1,0 +1,314 @@
+/*
+Theme Name:   DePo Skinny
+Theme URI:    http://powazek.com
+Description:  A slender theme for WP by <a href="http://powazek.com">Derek Powazek</a>
+Version:      1
+Author:       Derek Powazek
+Author URI:   http://powazek.com
+Modified (a bit):     Jenggo
+*/
+
+body {
+    background: #fff;
+    font-family: ubuntu, sans-serif;
+    color: black;
+    text-align: center;
+    font-size: 16px;
+    line-height: 26px;
+    text-rendering: optimizeLegibility;
+}
+
+img#wpstats { width:0px; height:0px; overflow:hidden; }
+
+a { color:#000; }
+a:hover { color:#2CB4C8; text-decoration: none;}
+
+p, ul, ol, li {
+    margin-bottom: 18px;
+}
+
+blockquote {
+    margin: 0 18px 18px 18px;
+/*    font-size:12px; */
+    color:#666;
+    padding-left:10px;
+    border-left:1px solid #ccc;
+}
+
+ul {
+    list-style-type: square;
+    margin-left: 2em;
+}
+
+ol {
+    margin-left: 2em;
+}
+
+h1 {
+    font-size: 55px;
+    line-height: 32px;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 36px;
+}
+
+h1, h2 {
+    margin-bottom: 18px;
+}
+
+h3 {
+    font-size: 20px;
+    line-height: 24px;
+}
+h3 a { text-decoration: none; }
+
+h4 {
+    font-size: 18px;
+    line-height: 20px;
+}
+
+h3, h4 {
+    margin-bottom: 20px;
+}
+
+h5, h6 {
+    font-size: 16px;
+    margin-bottom: 0
+}
+
+header, section, footer {
+    text-align:center;
+    margin: 0 auto;
+}
+
+header, section, footer, footer article#copyright, #konten nav.postnoline, #konten article p code, #konten aside, .postcomment {
+    width: 600px;
+}
+
+/* HEADER */
+
+header {
+    padding: 30px 0 0;
+    text-align:left;
+    border-bottom: 1px solid #666;
+}
+
+header h1 {
+/*    font-size: 26px; */
+    color: #000;
+    font-weight: bold;
+}
+header a { text-decoration:none; }
+
+header span {
+    margin-left: 10px;
+    font-size: 12px;
+    color: #666;
+    font-weight: normal;
+}
+
+header a { color: #333; }
+header a:hover { color: #2CB4C8; }
+
+.search {
+    padding:11px 0 0 20px;
+    background:url('/home/wp-content/themes/hpc/images/search.gif') 0 14px no-repeat;
+    float:right;
+}
+
+.search input {
+    width:120px;
+}
+
+/* POSTS */
+
+/* .post p a { font-weight:bold } */
+
+#konten article {
+    border-bottom: 1px solid #ccc;
+	padding:18px 0 0 0;
+	text-align:left;
+}
+
+#konten article header {
+    border: none;
+    padding: 0
+}
+
+#konten nav.postnoline {
+	padding:18px 0 28px 0;
+	text-align:left;
+    border: none;
+    font-size:12px;
+}
+
+#konten article p a.lanjut {
+    display: block;
+    text-align: right;
+}
+
+#konten article p code {
+    font-family: monospace;
+    font-size: 12px;
+    border: thick double #E4E4E4;
+    background-color: #E4E4E4;
+    white-space: pre-wrap;
+    display: block;
+    word-wrap: break-word;
+}
+
+#konten aside {
+}
+
+.postcomment {
+	padding:18px 0 0 0;
+	text-align:left;
+    font-size:16px;
+    line-height: 24px;
+    display: block;
+}
+
+.commentslnk {
+    font-size:13px;
+	display: block;
+    border-bottom: thin solid #ccc;
+    padding-bottom: 12px;
+    /*margin-top: 20px;*/
+    text-align: right;
+}
+
+.commentslnk strong {
+    cursor: pointer;
+}
+
+.commentsdate {
+    font-size:11px;
+    clear: both;
+    float: right
+}
+
+p.byline {
+	margin-top:-10px;
+    font-size:11px;
+    color: #555;
+}
+h3.articletitle a {text-decoration:none; color:#000 }
+h3.articletitle a:visited {text-decoration:none; color:#000 }
+
+.post IMG {
+	border:1px solid #000;
+}
+
+.post IMG.noline {
+	border:0;
+}
+
+span.previous { padding: 0 20px 0 0; float: left; }
+
+span.next { float: right; }
+
+span.edit a {
+    float:right;
+    font-weight:normal;
+    font-size:11px;
+    color:#666;
+    border:1px solid #ccc;
+    padding:0 4px;
+}
+
+.metainfo {
+    float:left;
+    width: 152px;
+    font-size: 10px;
+    color: #666;
+    padding: 3px 0;
+}
+
+.previously {
+	text-align:left;
+    width: 500px;
+    padding: 20px 0 3px 0;
+    border-top: 1px solid #ccc;
+    font-size: 12px;
+}
+
+.previously a { font-weight:bold }
+
+.text_area { width: 480px !important; }
+
+.postform { width:150px; margin: 0;}
+
+.delicious-tags { font-size:11px; color:#666 }
+.delicious-tags a { font-weight:normal; color:#333 }
+ul.delicious { color:#555 }
+
+#comments_headers {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 18px;
+}
+.tengah {
+    text-align: center;
+}
+
+
+/* FOOTER */
+
+footer {
+    font-size: 11px;
+    padding: 22px 0 10px 5px;
+    margin-top: 18px;
+    border-top: 1px solid #666;
+    text-align:left;
+    color: #666;
+    clear: both
+}
+
+footer article {
+    width:170px;
+    margin: 0 20px 0 0;
+    float:left;
+}
+
+footer img {
+    border:0;
+}
+
+footer article#last {
+    width:160px;
+    margin: 0;
+}
+
+footer article#copyright {
+    font-size: 11px;
+    margin:12px 0 0 0;
+    padding: 18px 0 10px 0;
+    border-top: 1px solid #666;
+    text-align:right;
+    color: #666;
+    clear: both;
+}
+
+footer nav ul li, footer article p {
+    margin: 0;
+}
+
+footer nav ul {
+    list-style-type: square;
+    margin-top: 0
+}
+
+footer form {
+    float: left;
+    margin-top: 12px
+}
+
+footer form input {
+    width: 95px;
+    background-color: #e5e5e5;
+}
+
+footer form label {
+    display: none
+}

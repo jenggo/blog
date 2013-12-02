@@ -1,0 +1,89 @@
+			<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2 class="left">Artikel</h2>
+						<div class="right">
+							<form method="POST" action="" id="form_pencarian">
+								<input type="search" name="pencarian" id="pencarian" class="field small-field" placeholder="cari artikel" required="required" />
+								<button class="button">cari</button>
+							</form>
+						</div>
+					</div>
+					<!-- End Box Head -->
+
+					<!-- Table -->
+					<div class="table">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<thead>
+								<tr>
+									<!-- <th width="13"><input type="checkbox" class="checkbox" /></th> -->
+									<th>Judul</th>
+									<th>Tanggal</th>
+									<th>Kategori</th>
+									<th>Penulis</th>
+									<th width="110" class="ac">Content Control</th>
+								</tr>
+							</thead>
+							<tbody>
+								<include href="{{ @tabel_box }}" />
+							</tbody>
+						</table>
+						<check if="{{ isset(@admin_pagebrowser) }}">
+							{{ @admin_pagebrowser | raw }}
+						</check>
+
+					</div>
+					<!-- Table -->
+
+				</div>
+				<!-- End Box -->
+<script type="text/javascript">
+	$(function(){
+		$(".pagging .right a").click(function(e){
+			var url = $(this).attr("href");
+			$.get(url, function(data){
+				if (data.length > 5) {
+					$("#content").empty().html(data);
+				}
+			})
+			e.preventDefault();
+		});
+
+		$("#form_pencarian").submit(function(e){
+			$.ajax({
+				type: "POST",
+				data: $(this).serialize(),
+				success: function(data) {
+					if (data.length > 5) {
+						$("#content").empty().html(data);
+					}
+				}
+			});
+			e.preventDefault();
+		});
+
+		$(".del").click(function(e){
+			var ini = $(this);
+			var url = ini.attr("href");
+			$.get(url, function(data){
+				if (data.length > 1) {
+					ini.parent().parent().remove();
+				}
+			});
+			e.preventDefault();
+		});
+
+		$(".edit").click(function(e){
+			var url = $(this).attr("href");
+			$.get(url, function(data) {
+				if (data.length > 1) {
+					$("#navigation ul li").removeClass();
+					$("#nav_artikel").addClass("active");
+					$("#content").empty().html(data);
+				}
+			});
+			e.preventDefault();
+		});
+	});
+</script>

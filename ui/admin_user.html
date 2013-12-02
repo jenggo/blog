@@ -1,0 +1,80 @@
+			<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<h2 class="box-head">Users</h2>
+					<!-- End Box Head -->
+
+					<!-- Table -->
+					<div class="table">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<thead>
+								<tr>
+									<th>Nama</th>
+									<th>Email</th>
+									<th>Situs</th>
+									<th>Aktif</th>
+									<th width="90" class="ac">Control</th>
+								</tr>
+							</thead>
+							<tbody id="list_user">
+							<include href="admin_tabel_user.html" />
+							</tbody>
+						</table>
+						<check if="{{ isset(@admin_pagebrowser) }}">
+							{{ @admin_pagebrowser | raw }}
+						</check>
+
+					</div>
+					<!-- Table -->
+
+				</div>
+				<!-- End Box -->
+<script type="text/javascript">
+		$(function(){
+		$(".pagging .right a").click(function(e){
+			var url = $(this).attr("href");
+			$.get(url, function(data){
+				if (data.length > 5) {
+					$("#content").empty().html(data);
+				}
+			})
+			e.preventDefault();
+		});
+
+		$(".del").click(function(e){
+			var ini = $(this);
+			$.get(ini.attr("href"), function(data){
+				if (data == "JANGAN!") {
+					$("#isi_pesan").empty().text('Masih ada artikel yang ditulis oleh user!');
+					$("#pesan").removeClass("msg-ok").addClass("msg-error").show();
+				}
+				else {
+					ini.parent().parent().remove();
+				}
+			});
+			e.preventDefault();
+		});
+
+		$(".edit").click(function(e){
+			$.get($(this).attr("href"), function(data){
+				$("#content").empty().html(data);
+				$("#add_user").hide();
+			});
+			e.preventDefault();
+		});
+
+		$("#form_add_user").submit(function(e){
+			$.post("{{ @hal_admin }}/buat/user", $(this).serialize(), function(response){
+				if (response.length > 1) {
+					$("#form_add_user")[0].reset();
+					$.get("{{ @hal_admin }}/user/tabel", function(isi){
+						$("#list_user").empty().html(isi);
+					});
+				}
+			});
+			e.preventDefault();
+		});
+
+		$("#add_user").show();
+	});
+</script>

@@ -1,0 +1,16 @@
+<article>
+	<check if="{{ isset(@list_artikel) }}">
+		<false>
+			<header><h3>Tidak menemukan {{ @error }}</h3></header>
+		</false>
+		<true>
+			<header><h3>Menemukan {{ @jumlah }} hasil untuk {{ @cari }}</h3></header>
+			<ul>
+				<repeat group="{{ @list_artikel }}" value="{{ @artikel }}">
+					<li><a href="{{ @artikel.slug }}" title="{{ @artikel.judul }}">{{ @artikel.judul }}</a></li>
+				</repeat>
+			</ul>
+		</true>
+	</check>
+</article>
+<nav class="postnoline"><span class="previous">&larr; <a href="/" title="Beranda">Beranda</a></span></nav>

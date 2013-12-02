@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>AdminPage</title>
+	<link rel="stylesheet" href="ui/css/style_admin.css" type="text/css" media="all" />
+	 <!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+<div id="container">
+	<div class="shell">
+		<div class="box" id="box-login">
+			<h2 class="box-head">Login</h2>
+			<div class="msg msg-error" id="pesan">
+				<check if="{{ isset(@SESSION.pesan) }}"><p><strong id="isi_pesan">{{ @SESSION.pesan }}</strong></p></check>
+			</div>
+			<div class="box-content">
+			<form method="post" action="" id="form_login">
+				<p>
+					<label for="username">Username</label>
+					<input type="text" name="username" id="username" placeholder="username" required="required" autofocus="autofocus" />
+				</p>
+				<p>
+					<label for="password">Password</label>
+					<input type="password" name="password" id="password" placeholder="password" required="required" />
+				</p>
+				<p>
+					<button class="button">Login</button>
+				</p>
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="/ui/js/zepto.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+	// 	$("#form_login").submit(function(e){
+	// 		e.preventDefault();
+	// 	});
+		$("#pesan").click(function(e){
+			$(this).hide();
+			e.preventDefault();
+		});
+	});
+</script>
+</body>
+</html>

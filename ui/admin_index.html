@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>AdminPage</title>
+	<link rel="stylesheet" href="ui/css/style_admin.css" type="text/css" media="all" />
+	 <!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="/ui/js/zepto.min.js"></script>
+</head>
+<body>
+<!-- Header -->
+<div id="header">
+	<div class="shell">
+		<!-- Logo + Top Nav -->
+		<div id="top">
+			<h1><a href="{{ @hal_admin }}">AdminPage</a></h1>
+			<div id="top-navigation">
+				Hallo, <strong>{{ @SESSION.nama }}</strong>
+				<span>|</span>
+				<a href="{{ @hal_admin }}/user/edit/{{ @SESSION.id }}" id="edit_user">Settings</a>
+				<span>|</span>
+				<a href="{{ @hal_admin }}/logout">Log out</a>
+			</div>
+		</div>
+		<!-- End Logo + Top Nav -->
+
+		<!-- Main Nav -->
+		<div id="navigation">
+			<ul>
+			    <li class="active"><a href="{{ @hal_admin }}"><span>Dashboard</span></a></li>
+			    <li id="nav_artikel"><a href="{{ @hal_admin }}/buat/artikel"><span>New Articles</span></a></li>
+			    <li><a href="{{ @hal_admin }}/komentar"><span>Comments</span></a></li>
+			    <check if="{{ @SESSION.akses == 2 }}">
+			    	<li><a href="{{ @hal_admin }}/buat/kategori"><span>New Category</span></a></li>
+			    	<li><a href="{{ @hal_admin }}/user"><span>Users</span></a></li>
+			    	<li><a href="{{ @hal_admin }}/setting"><span>Settings</span></a></li>
+			    </check>
+			    <!-- <li><a href="{{ @hal_admin }}/blacklist"><span>Blacklisted</span></a></li> -->
+			</ul>
+		</div>
+		<!-- End Main Nav -->
+	</div>
+</div>
+<!-- End Header -->
+
+<!-- Container -->
+<div id="container">
+	<div class="shell">
+		<div class="msg sembunyi" id="pesan">
+			<p><strong id="isi_pesan"></strong></p>
+			<span class="close">close</span>
+		</div>
+		<!-- Main -->
+		<div id="main">
+			<div class="cl">&nbsp;</div>
+
+			<!-- Content -->
+			<div id="content">
+
+				<include href="admin_dashboard.html" />
+
+			</div>
+			<!-- End Content -->
+
+			<include href="admin_sidebar.html" />
+
+			<div class="cl">&nbsp;</div>
+		</div>
+		<!-- Main -->
+	</div>
+</div>
+<!-- End Container -->
+<script type="text/javascript">
+	$(function(){
+		$("#navigation ul li").click(function(e){
+			var ini = $(this);
+			var url = ini.children().attr("href");
+			$("#pesan").hide();
+			$.get(url, function(data){
+				if (data.length > 10) {
+					$("#sidebar .box").hide();
+					$("#content").empty().html(data);
+					ini.addClass("active").siblings().removeClass("active");
+				}
+			});
+			e.preventDefault();
+		});
+
+		$("#edit_user").click(function(e){
+			$.get($(this).attr("href"), function(data){
+				$("#content").empty().html(data);
+			});
+			e.preventDefault();
+		});
+
+		$(".close").click(function(e){
+			$(this).parent().hide();
+			e.preventDefault();
+		});
+	});
+</script>
+</body>
+</html>

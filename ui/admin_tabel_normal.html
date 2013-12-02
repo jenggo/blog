@@ -1,0 +1,23 @@
+							<repeat group="{{ @list_artikel.subset }}" value="{{ @artikel }}">
+								<tr>
+									<!-- <td><input type="checkbox" class="checkbox" /></td> -->
+									<td><h3><a href="/{{ @artikel.slug }}">{{ @artikel.judul }}</a></h3></td>
+									<td>{{ @artikel.tanggal }}</td>
+									<td>
+										<repeat group="{{ @list_kategori }}" value="{{ @kategori }}">
+											<check if="{{ @artikel.id_kategori == @kategori.id }}">
+												<a href="/kategori/{{ @kategori.slug }}">{{ @kategori.nama }}</a>
+											</check>
+										</repeat>
+									</td>
+									<repeat group="{{ @list_user }}" value="{{ @user }}">
+										<check if="{{ @user.id == @artikel.id_user }}">
+										<td>{{ @user.nama }}</td>
+										<td>
+											<a href="{{ @hal_admin }}/hapus/artikel/{{ @artikel.id }}" class="ico del">Delete</a>
+											<a href="{{ @hal_admin }}/edit/artikel/{{ @artikel.id }}" class="ico edit">Edit</a>
+										</td>
+										</check>
+									</repeat>
+								</tr>
+							</repeat>
